@@ -25,23 +25,15 @@ public class FutureGen {
     public static void main (String [] args){
         try {
             FutureGen futureGen = new FutureGen();
-            System.out.println(displayFutureGenMessageIntro(new ByteArrayOutputStream()));
-            System.out.println(displayFutureGenMessageInstructions(new ByteArrayOutputStream()));
-            //System.out.println("Enter two people you want to  marry, and one you definitely don't");
-            //String userInput = FutureGen.getUserResponse(System.in);
+            System.out.println(displayFutureGenMessage(new ByteArrayOutputStream(), "Welcome to the Future Generator"));
+            System.out.println(displayFutureGenMessage(new ByteArrayOutputStream(), "For each category choose two options you want in your future and one you don't. What will your future hold?"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public static String displayFutureGenMessageIntro(ByteArrayOutputStream userDisplay) throws IOException {
-        byte [] introduction = "Welcome to the Future Generator".getBytes();
+    public static String displayFutureGenMessage(ByteArrayOutputStream userDisplay, String stringthis) throws IOException {
+        byte [] introduction = stringthis.getBytes();
         userDisplay.write(introduction);
-        return userDisplay.toString();
-    }
-
-    public static String displayFutureGenMessageInstructions(ByteArrayOutputStream userDisplay) throws IOException {
-        byte [] instructions = "For each category choose two options you want in your future and one you don't. What will your future hold?".getBytes();
-        userDisplay.write(instructions);
         return userDisplay.toString();
     }
     public static String getUserResponse(InputStream input, ArrayList st){

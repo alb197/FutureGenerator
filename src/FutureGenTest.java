@@ -16,6 +16,7 @@ public class FutureGenTest {
     private final ByteArrayOutputStream userDisplay = new ByteArrayOutputStream();
     private ByteArrayInputStream userAnswer;
     private FutureGen fut = new FutureGen();
+    private String sts = "Test Input";
 
     @Before
     public void init(){ //setting up all the tests
@@ -29,15 +30,8 @@ public class FutureGenTest {
     public void testDisplayCorrectIntroToUSer() throws IOException //testing to see if the system.out.println works correctly
     {
 
-        String st = fut.displayFutureGenMessageIntro(userDisplay);
-        assertEquals("Welcome to the Future Generator", st);
-    }
-    @Test
-    public void testDisplayCorrectInstructionsToUser() throws IOException //testing to see if the system.out.println works correctly
-    {
-
-        String str = fut.displayFutureGenMessageInstructions(userDisplay);
-        assertEquals("For each category choose two options you want in your future and one you don't. What will your future hold?", str);
+        String st = fut.displayFutureGenMessage(userDisplay, sts);
+        assertEquals(st, sts);
     }
     @Test
     public void testCorrectUserInputIsCaptured() throws IOException //testing to see if the scanner works
