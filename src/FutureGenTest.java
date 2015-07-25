@@ -14,36 +14,40 @@ import static org.junit.Assert.*;
 public class FutureGenTest {
     private final ByteArrayOutputStream userDisplay = new ByteArrayOutputStream();
     private ByteArrayInputStream userAnswer;
+    private FutureGen fut = new FutureGen();
 
     @Before
     public void init(){ //setting up all the tests
+
         System.setOut(new PrintStream(userDisplay));
         userAnswer = new ByteArrayInputStream("Test Input".getBytes());
         System.setIn(userAnswer);
     }
 
     @Test
-    public void displayCorrectIntroToUSer() throws IOException //testing to see if the system.out.println works correctly
+    public void testDisplayCorrectIntroToUSer() throws IOException //testing to see if the system.out.println works correctly
     {
-        FutureGen fut = new FutureGen();
+
         String st = fut.displayFutureGenMessageIntro(userDisplay);
         assertEquals("Welcome to the Future Generator", st);
     }
     @Test
-    public void displayCorrectInstructionsToUser() throws IOException //testing to see if the system.out.println works correctly
+    public void testDisplayCorrectInstructionsToUser() throws IOException //testing to see if the system.out.println works correctly
     {
-        FutureGen futu = new FutureGen();
-        String str = futu.displayFutureGenMessageInstructions(userDisplay);
+
+        String str = fut.displayFutureGenMessageInstructions(userDisplay);
         assertEquals("For each category choose two options you want in your future and one you don't. What will your future hold?", str);
     }
     @Test
-    public void correctUserInputIsCaptured() throws IOException //testing to see if the array works
+    public void testCorrectUserInputIsCaptured() throws IOException //testing to see if the scanner works
     {
-        System.setIn(userAnswer);
-        FutureGen futur = new FutureGen();
-        String str = futur.getUserResponse(userAnswer);
-        assertEquals("Test Input", str);
+        String [] stAr = new String [3];
+        fut.getUserResponse(userAnswer, stAr);
+        assertEquals("Chris", stAr[0]);
     }
+
+
+
     @After
     public void cleanUP(){
         System.setOut(null);

@@ -14,7 +14,7 @@ public class FutureGen {
             FutureGen futureGen = new FutureGen();
             System.out.println(displayFutureGenMessageIntro(new ByteArrayOutputStream()));
             System.out.println(displayFutureGenMessageInstructions(new ByteArrayOutputStream()));
-            String userInput = FutureGen.getUserResponse(System.in);
+           // String userInput = FutureGen.getUserResponse(System.in);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ public class FutureGen {
         userDisplay.write(instructions);
         return userDisplay.toString();
     }
-    public static String getUserResponse(InputStream input){
+    public static String getUserResponse(InputStream input, String [] st){
         return null;
     }
 
