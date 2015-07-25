@@ -8,6 +8,7 @@ import org.junit.runner.Result;
 
 import java.awt.image.RescaleOp;
 import java.io.*;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -41,9 +42,9 @@ public class FutureGenTest {
     @Test
     public void testCorrectUserInputIsCaptured() throws IOException //testing to see if the scanner works
     {
-        String [] stAr = new String [3];
+        ArrayList <String> stAr = new ArrayList<String>();
         fut.getUserResponse(userAnswer, stAr);
-        assertEquals("Chris", stAr[0]);
+        assertEquals("Test Input", stAr.get(stAr.lastIndexOf("Test Input")));
     }
 
 
