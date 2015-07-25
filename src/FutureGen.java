@@ -1,14 +1,20 @@
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
  * Created by Alina Bengert on 7/24/2015.
  */
+import java.io.*;
+import java.util.Scanner;
+
 public class FutureGen {
     public static void main (String [] args){
         try {
+            FutureGen futureGen = new FutureGen();
             System.out.println(displayFutureGenMessageIntro(new ByteArrayOutputStream()));
             System.out.println(displayFutureGenMessageInstructions(new ByteArrayOutputStream()));
+            String userInput = FutureGen.getUserResponse(System.in);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -24,6 +30,8 @@ public class FutureGen {
         userDisplay.write(instructions);
         return userDisplay.toString();
     }
-
+    public static String getUserResponse(InputStream input){
+        return null;
+    }
 
 }

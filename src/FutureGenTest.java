@@ -7,17 +7,19 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 
 import java.awt.image.RescaleOp;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
+
 import static org.junit.Assert.*;
 
 public class FutureGenTest {
     private final ByteArrayOutputStream userDisplay = new ByteArrayOutputStream();
+    private ByteArrayInputStream userAnswer;
 
     @Before
     public void init(){ //setting up all the tests
         System.setOut(new PrintStream(userDisplay));
+        userAnswer = new ByteArrayInputStream("Test Input".getBytes());
+        System.setIn(userAnswer);
     }
 
     @Test
@@ -34,9 +36,17 @@ public class FutureGenTest {
         String str = futu.displayFutureGenMessageInstructions(userDisplay);
         assertEquals("For each category choose two options you want in your future and one you don't. What will your future hold?", str);
     }
-
+    @Test
+    public void correctUserInputIsCaptured() throws IOException //testing to see if the array works
+    {
+        System.setIn(userAnswer);
+        FutureGen futur = new FutureGen();
+        String str = futur.getUserResponse(userAnswer);
+        assertEquals("Test Input", str);
+    }
     @After
     public void cleanUP(){
         System.setOut(null);
+        System.setIn(null);
     }
 }
