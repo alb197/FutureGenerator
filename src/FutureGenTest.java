@@ -24,8 +24,8 @@ public class FutureGenTest {
     public void displayCorrectInstructionsToUSer() throws IOException //testing to see if the system.out.println works correctly
     {
         FutureGen fut = new FutureGen();
-        fut.displayFutureGenMessga(userDisplay);
-        assertEquals("hello", userDisplay.toString());
+        String st = fut.displayFutureGenMessga(userDisplay);
+        assertEquals("hello", st);
     }
 
 

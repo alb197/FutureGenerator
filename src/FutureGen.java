@@ -6,11 +6,16 @@ import java.io.IOException;
  */
 public class FutureGen {
     public static void main (String [] args){
-
+        try {
+            System.out.println(displayFutureGenMessga(new ByteArrayOutputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    public void displayFutureGenMessga(ByteArrayOutputStream userDisplay) throws IOException {
+    public static String displayFutureGenMessga(ByteArrayOutputStream userDisplay) throws IOException {
         byte [] b = "hello".getBytes();
         userDisplay.write(b);
+        return userDisplay.toString();
     }
 
 }
