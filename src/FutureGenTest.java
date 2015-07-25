@@ -4,18 +4,29 @@
 
 import org.junit.*;
 
-public class FutureGenTest {
-    //Testing item was added to ____ property
-    @Test
-    public void test1()
-    {
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import static org.junit.Assert.*;
 
+public class FutureGenTest {
+     private final ByteArrayOutputStream userDisplay = new ByteArrayOutputStream();
+
+    @Before
+    public void init(){ //setting up all the tests
+        System.setOut(new PrintStream(userDisplay));
     }
 
-    //Testing item was added to ____ property
     @Test
-    public void test2()
+    public void displayCorrectInstructionsToUSer() //testing to see if the system.out.println works correctly
     {
+       FutureGen fut = new FutureGen();
+       assertEquals("Welcome to the Future Generator",userDisplay.toString());
+    }
 
+
+
+    @After
+    public void cleanUP(){
+        System.setOut(null);
     }
 }
