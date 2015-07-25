@@ -3,13 +3,17 @@
  */
 
 import org.junit.*;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
 
+import java.awt.image.RescaleOp;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import static org.junit.Assert.*;
 
 public class FutureGenTest {
-     private final ByteArrayOutputStream userDisplay = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream userDisplay = new ByteArrayOutputStream();
 
     @Before
     public void init(){ //setting up all the tests
@@ -17,12 +21,12 @@ public class FutureGenTest {
     }
 
     @Test
-    public void displayCorrectInstructionsToUSer() //testing to see if the system.out.println works correctly
+    public void displayCorrectInstructionsToUSer() throws IOException //testing to see if the system.out.println works correctly
     {
-       FutureGen fut = new FutureGen();
-       assertEquals("Welcome to the Future Generator",userDisplay.toString());
+        FutureGen fut = new FutureGen();
+        fut.displayFutureGenMessga(userDisplay);
+        assertEquals("hello", userDisplay.toString());
     }
-
 
 
     @After
