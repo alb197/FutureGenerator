@@ -21,13 +21,19 @@ public class FutureGenTest {
     }
 
     @Test
-    public void displayCorrectInstructionsToUSer() throws IOException //testing to see if the system.out.println works correctly
+    public void displayCorrectIntroToUSer() throws IOException //testing to see if the system.out.println works correctly
     {
         FutureGen fut = new FutureGen();
-        String st = fut.displayFutureGenMessga(userDisplay);
-        assertEquals("hello", st);
+        String st = fut.displayFutureGenMessageIntro(userDisplay);
+        assertEquals("Welcome to the Future Generator", st);
     }
-
+    @Test
+    public void displayCorrectInstructionsToUser() throws IOException //testing to see if the system.out.println works correctly
+    {
+        FutureGen futu = new FutureGen();
+        String str = futu.displayFutureGenMessageInstructions(userDisplay);
+        assertEquals("For each category choose two options you want in your future and one you don't. What will your future hold?", str);
+    }
 
     @After
     public void cleanUP(){
