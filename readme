@@ -1,0 +1,18 @@
+This is a future predicting game. 
+A user is prompted to enter two items into different categories which 
+describe their future life.
+The categories are:
+	Person they to marry
+	Place they want to live
+	Number of kids that they wish to pop out
+	Type of car that they want to drive
+	Type of living situation
+	Type of pets they want to adopt
+	
+The user is then prompted to enter one item per category that they 
+would not prefer in their future.
+
+With a random number generator, a counter is generated. The counter
+iterates through items in each category and eliminates one item
+each iteration. The final items remaining in each category are the
+predictions of the user's future.
