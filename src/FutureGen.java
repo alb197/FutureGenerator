@@ -9,7 +9,8 @@ public class FutureGen {
 
     }
     public void displayFutureGenMessga(ByteArrayOutputStream userDisplay) throws IOException {
-       
+        byte [] b = "hello".getBytes();
+        userDisplay.write(b);
     }
 
 }
