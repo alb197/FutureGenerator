@@ -8,6 +8,7 @@ import org.junit.runner.Result;
 
 import java.awt.image.RescaleOp;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -19,7 +20,7 @@ public class FutureGenTest {
     private String sts = "Test Input";
     private static final String [] cat = new String []{"Person you will marry (ex: Chris, Channing etc.)", " Country you will live in (ex: Russia, Japan etc.)", "Type of car you will drive (ex: Subaru, Limo etc.)"," Pet you will have (ex: Dog, Tiger etc.)", "Residence you will live in (ex: House, Mansion etc.)", "Number of Children you will pop out (ex: 2, 11 etc.)" };
     private ArrayList<ByteArrayInputStream> allUsersAnswers = new ArrayList<ByteArrayInputStream>();
-    private String[] userInput = new String[] {"Chris", "Elad", "Ryan", "Moscow", "Pittsburgh", "Chicago", "Subaru", "Limo", "Toyota", "Cat", "Fish", "House", "Box", "Hotel", "7", "2", "1"};
+    private String[] userInput = new String[] {"Chris", "Elad", "Ryan", "Moscow", "Pittsburgh", "Chicago", "Subaru", "Limo", "Toyota", "Cat", "Fish", "Dog", "House", "Box", "Hotel", "7", "2", "1"};
     private static final String PositiveMessage = "Please enter %s that you do like.";
     private static final String NegativeMessage = "Please enter %s that you do not like.";
 
@@ -55,41 +56,47 @@ public class FutureGenTest {
         fut.getCategoriesArray();
         assertEquals(fut.getCategoriesArray().size(), 6);
     }
-   /*@Test
-     public void testAbleToPopulateArrayList()throws IOException{ //testing to see if the arraylist is populating user input
-        fut.addCategories();
-        String fml = null;
+   @Test
+     public void testAbleToPopulateArrayList()throws IOException { //testing to see if the arraylist is populating user input
+       fut.addCategories();
+       String fml = null;
        ArrayList<ArrayList<String>> list = fut.getCategoriesArray();
-       for (int i = 0; i < cat.length; i++) {
-           for (int j = 0; j <= 2; j++) {
-               if (j == 0 || j == 1) {
-                   System.out.println(fut.displayFutureGenMessage(new ByteArrayOutputStream(), String.format(PositiveMessage, cat[i])));
-               } else {
-                   System.out.println(fut.displayFutureGenMessage(new ByteArrayOutputStream(), String.format(NegativeMessage, cat[i])));
-               }
-               fml= fut.getUserResponse(allUsersAnswers.get(i), list.get(i));
-           }
-               assertEquals(userInput[i], fml);
+       ArrayList<String> ExpectedResultsArray = new ArrayList<String>();
+       int Counter = 0;
+        for (int i = 0; i < cat.length; i++) {
+            for (int j = 0; j <= 2; j++) {
+                if (j == 0 || j == 1) {
+                    System.out.println(fut.displayFutureGenMessage(new ByteArrayOutputStream(), String.format(PositiveMessage, cat[i])));
+                } else {
+                    System.out.println(fut.displayFutureGenMessage(new ByteArrayOutputStream(), String.format(NegativeMessage, cat[i])));
+                }
+                fml= fut.getUserResponse(allUsersAnswers.get(Counter), list.get(i));
+                assertEquals(userInput[Counter], fml);
+
+                Counter++;
+             }
+            }
         }
-    }*/
     @Test
     public void numberWasGeneratedInRange() {
         int random;
         int min =0;
         int max = 300;
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 3; i++) {
             random = fut.getRandomNumber();
             assert(random>=min && random<=max);
 
         }
     }
-    /*@Test
-    public void correctResultsAreShown(){
-        int rand = fut.getRandomNumber();
-        fut.showResults(userInput,rand);
-
+    @Test
+    public void correctResultsAreShown() throws IOException {
+        fut.addCategories();
+         for (int i = 0; i < userInput.length; i++) {
+                allUsersAnswers.add(new ByteArrayInputStream(userInput[i].getBytes()));
+            }
+        ArrayList<String> fk = fut.showResults();
+        assert(fk.contains("Chris")|| fk.contains("Elad") ||fk.contains("Ryan"));
     }
-*/
 
     @After
     public void cleanUP(){

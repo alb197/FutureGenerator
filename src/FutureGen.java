@@ -1,8 +1,6 @@
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Random;
-
 /**
  * Created by Alina Bengert on 7/24/2015.
  */
@@ -24,17 +22,20 @@ public class FutureGen {
     private static String residence;
     private static String pet;
     private static String car;
-    private static final String [] categories = new String []{"Person you will marry (ex: Chris, Channing etc.)", " Country you will live in (ex: Russia, Japan etc.)", "Type of car you will drive (ex: Subaru, Limo etc.)"," Pet you will have (ex: Dog, Tiger etc.)", "Residence you will live in (ex: House, Mansion etc.)", "Number of Children you will pop out (ex: 2, 11 etc.)" };
-    private static final String PositiveMessage = "Please enter %s that you do like.";
-    private static final String NegativeMessage = "Please enter %s that you do not like.";
+    private static final String [] categories = new String []{"Person to marry (ex: Chris)", " Country to live in (ex: Russia)", "Type of car (ex: Subaru)"," A pet you want (ex: Dog)", "Type of Residence (ex: Mansion)", "Number of Children (ex: 2)" };
+    private static final String PositiveMessage = "Enter %s that you like.";
+    private static final String NegativeMessage = "Enter %s that you do not like.";
+    private static final PrintStream SYSTEM_OUT = null;
+    private static final OutputStream Sys = null;
+
     public static void main (String [] args){
         try {
             FutureGen futureGen = new FutureGen();
             System.out.println(displayFutureGenMessage(new ByteArrayOutputStream(), "Welcome to the Future Generator"));
             System.out.println(displayFutureGenMessage(new ByteArrayOutputStream(), "For each category choose two options you want in your future and one you don't. What will your future hold?"));
             addCategories();
-           //populateArrayList();
-            for (int i = 0; i < categories.length; i++) {
+            //populateArrayList();
+            for (int i = 0; i <categories.length; i++) {
                 for (int j = 0; j <= 2; j++) {
                     if (j == 0 || j == 1) {
                         System.out.println(displayFutureGenMessage(new ByteArrayOutputStream(), String.format(PositiveMessage, categories[i])));
@@ -42,8 +43,16 @@ public class FutureGen {
                         System.out.println(displayFutureGenMessage(new ByteArrayOutputStream(), String.format(NegativeMessage, categories[i])));
                     }
                     getUserResponse(System.in, categoriesArray.get(i));
+
                 }
+
             }
+            ArrayList<String> pk = showResults();
+            System.out.println("You will marry " + pk.get(0).toString()+" and live in a beautiful " + pk.get(4).toString()+" in " + pk.get(1).toString() + ". ");
+            System.out.println("You will drive home in your " + pk.get(2).toString()+" with your " + pk.get(5).toString()+" kids to pick up your adorable new " + pk.get(3).toString());
+            System.out.println(" ");
+
+
         }
 
         catch (IOException e) {
@@ -77,18 +86,21 @@ public class FutureGen {
     public ArrayList<ArrayList<String>> getCategoriesArray(){
         return categoriesArray;
     }
-    public int getRandomNumber (){
+    public static int getRandomNumber(){
         Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(300);
+        int randomInt = randomGenerator.nextInt(2);
         return randomInt;
     }
-   /* public String showResults(String [] s, int r){
-        for( int i =0; i<r; i++){
-            getUserResponse();
-        }
-
-            System.out.println();
-        return null;
-    }*/
+   public static ArrayList<String> showResults() throws IOException {
+       ArrayList<String> finalResult = new ArrayList<String>(6);
+       ArrayList<String> nonResults = new ArrayList<String>(12);
+       int r = 0;
+       for (int i = 0; i < categoriesArray.size(); i++) {
+           r = getRandomNumber();
+           finalResult.add(categoriesArray.get(i).get(r));
+           categoriesArray.get(i).remove(r);
+       }
+       return finalResult;
+   }
 
 }
