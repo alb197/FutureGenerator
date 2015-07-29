@@ -34,6 +34,7 @@ public class FutureGenTest {
             allUsersAnswers.add(new ByteArrayInputStream(userInput[i].getBytes()));
         }
         System.setIn(userAnswer);
+
     }
 
     @Test
@@ -57,28 +58,36 @@ public class FutureGenTest {
         assertEquals(fut.getCategoriesArray().size(), 6);
     }
    @Test
-     public void testAbleToPopulateArrayList()throws IOException { //testing to see if the arraylist is populating user input
+     public void displayArrayList()throws IOException { //testing to see if the arraylist is populating user input
        fut.addCategories();
        String fml = null;
        ArrayList<ArrayList<String>> list = fut.getCategoriesArray();
        ArrayList<String> ExpectedResultsArray = new ArrayList<String>();
        int Counter = 0;
-        for (int i = 0; i < cat.length; i++) {
-            for (int j = 0; j <= 2; j++) {
-                if (j == 0 || j == 1) {
-                    System.out.println(fut.displayFutureGenMessage(new ByteArrayOutputStream(), String.format(PositiveMessage, cat[i])));
-                } else {
-                    System.out.println(fut.displayFutureGenMessage(new ByteArrayOutputStream(), String.format(NegativeMessage, cat[i])));
-                }
-                fml= fut.getUserResponse(allUsersAnswers.get(Counter), list.get(i));
-                assertEquals(userInput[Counter], fml);
+       for (int i = 0; i < cat.length; i++) {
+           for (int j = 0; j <= 2; j++) {
+               if (j == 0 || j == 1) {
+                   try {
+                       System.out.println(fut.displayFutureGenMessage(new ByteArrayOutputStream(), String.format(PositiveMessage, cat[i])));
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                   }
+               } else {
+                   try {
+                       System.out.println(fut.displayFutureGenMessage(new ByteArrayOutputStream(), String.format(NegativeMessage, cat[i])));
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                   }
+               }
+               fml= fut.getUserResponse(allUsersAnswers.get(Counter), list.get(i));
+               assertEquals(userInput[Counter], fml);
 
-                Counter++;
-             }
-            }
-        }
+               Counter++;
+           }
+       }
+   }
     @Test
-    public void numberWasGeneratedInRange() {
+    public void numberWasGeneratedInRange() { //testing to see if the numbGen is in the right range
         int random;
         int min =0;
         int max = 300;
@@ -89,16 +98,23 @@ public class FutureGenTest {
         }
     }
     @Test
-    public void correctResultsAreShown() throws IOException {
+    public void correctResultsAreShown() throws IOException { // testing to see if the results are shown
         fut.addCategories();
-         for (int i = 0; i < userInput.length; i++) {
-                allUsersAnswers.add(new ByteArrayInputStream(userInput[i].getBytes()));
+        ArrayList<String> gettingFinalResult;
+        gettingFinalResult = fut.showResults();
+        fut.getCategoriesArray();
+        ArrayList<String> userInputArrayList = new ArrayList<String>(18);
+
+        for (int i = 0; i < userInput.length; i++) {
+            userInputArrayList.add(userInput[i]);
+        }
+
+        for (int i = 0; i < gettingFinalResult.size(); i++) {
+            assertTrue(userInputArrayList.contains(gettingFinalResult.get(i).toString()));
             }
-        ArrayList<String> fk = fut.showResults();
-        assert(fk.contains("Chris")|| fk.contains("Elad") ||fk.contains("Ryan"));
     }
 
-    @After
+    @After //MakingSure everything is cleared when done testing
     public void cleanUP(){
         System.setOut(null);
         System.setIn(null);
